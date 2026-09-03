@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inside My Computer - Listening Exercise</title>
+<style>
+  body {
+    font-family: Georgia, serif;
+    max-width: 900px;
+    margin: 30px auto;
+    line-height: 2;
+    color: #222;
+    padding: 0 20px;
+  }
+  h2 { margin-bottom: 20px; }
+  input.blank {
+    width: 140px;
+    padding: 4px 6px;
+    font-family: Georgia, serif;
+    font-size: 1em;
+    border: 1px solid #888;
+    border-radius: 4px;
+    text-align: center;
+  }
+  input.correct {
+    border: 2px solid #2e7d32;
+    background-color: #e8f5e9;
+  }
+  input.incorrect {
+    border: 2px solid #c62828;
+    background-color: #ffebee;
+  }
+  .btn-row {
+    margin-top: 25px;
+  }
+  button {
+    padding: 8px 20px;
+    font-size: 1em;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #666;
+    background: #f0f0f0;
+  }
+  button:hover { background: #e0e0e0; }
+  #result {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h2>Text: "Inside My Computer"</h2>
+
+<p>
+Last week, I decided to open up my old desktop computer to see what was inside.
+The first thing I noticed was a large green board connecting everything together —
+this is called the <input type="text" class="blank" id="b1"> (1).
+It is the most important part because every other component plugs directly into it.
+</p>
+
+<p>
+Next to it, I found a small but powerful chip. This is the
+<input type="text" class="blank" id="b2"> (2), often described as the "brain" of the
+computer, because it processes all the instructions and calculations.
+</p>
+
+<p>
+Right next to that chip, there were a few sticks of memory. These are called
+<input type="text" class="blank" id="b3"> (3), and they temporarily store data that
+the computer is actively using. Unlike storage, this type of memory is lost when the
+computer is turned off.
+</p>
+
+<p>
+For long-term storage, my computer had two options: an older, mechanical
+<input type="text" class="blank" id="b4"> (4), which uses spinning disks, and a
+newer, faster <input type="text" class="blank" id="b5"> (5), which has no moving
+parts and uses flash memory instead.
+</p>
+
+<p>
+I also noticed a separate card dedicated to processing images and video. This is the
+<input type="text" class="blank" id="b6"> (6), which is especially important for
+gaming and video editing.
+</p>
+
+<p>
+To keep everything from overheating, there was a small device spinning constantly —
+the <input type="text" class="blank" id="b7"> (7). Without it, the CPU could
+overheat and stop working.
+</p>
+
+<p>
+Powering all of this was a metal box called the
+<input type="text" class="blank" id="b8"> (8). It converts electricity from the wall
+socket into the correct voltage for the computer's components.
+</p>
+
+<p>
+Finally, to actually use the computer, I need output and input devices: the
+<input type="text" class="blank" id="b9"> (9) to display the image, and the
+<input type="text" class="blank" id="b10"> (10) and
+<input type="text" class="blank" id="b11"> (11) to type and click.
+</p>
+
+<div class="btn-row">
+  <button onclick="resetForm()">reset</button>
+  <button onclick="checkAnswers()">send</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+  // to'g'ri javoblar (bir nechta variant qabul qilinadi)
+  const answers = {
+    b1:  ["motherboard"],
+    b2:  ["cpu"],
+    b3:  ["ram"],
+    b4:  ["hard drive", "hdd", "hard disk"],
+    b5:  ["ssd"],
+    b6:  ["gpu", "graphics card"],
+    b7:  ["cooling fan", "fan"],
+    b8:  ["power supply unit", "psu", "power supply"],
+    b9:  ["monitor", "screen"],
+    b10: ["keyboard"],
+    b11: ["mouse"]
+  };
+
+  function normalize(str) {
+    return str.trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  function checkAnswers() {
+    let correctCount = 0;
+    const total = Object.keys(answers).length;
+
+    for (const id in answers) {
+      const input = document.getElementById(id);
+      const userAnswer = normalize(input.value);
+      const isCorrect = answers[id].includes(userAnswer);
+
+      input.classList.remove("correct", "incorrect");
+      input.classList.add(isCorrect ? "correct" : "incorrect");
+
+      if (isCorrect) correctCount++;
+    }
+
+    const resultDiv = document.getElementById("result");
+    resultDiv.textContent = `Natija: ${correctCount} / ${total} to'g'ri javob`;
+    resultDiv.style.color = correctCount === total ? "#2e7d32" : "#c62828";
+  }
+
+  function resetForm() {
+    for (const id in answers) {
+      const input = document.getElementById(id);
+      input.value = "";
+      input.classList.remove("correct", "incorrect");
+    }
+    document.getElementById("result").textContent = "";
+  }
+</script>
+
+</body>
+</html>
